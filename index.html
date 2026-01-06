@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YNAB CSV Converter</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>YNAB CSV Converter</h1>
+        <p>Convert your bank CSV to YNAB-compatible format</p>
+      </header>
+
+      <main>
+        <div class="upload-section">
+          <div class="file-input-wrapper">
+            <input type="file" id="csvFile" accept=".csv" />
+            <label for="csvFile" class="file-label">Choose CSV File</label>
+            <span id="fileName" class="file-name"></span>
+          </div>
+
+          <button id="convertBtn" class="convert-btn">Convert to YNAB Format</button>
+        </div>
+
+        <div id="status" class="status"></div>
+
+        <div class="info-section">
+          <h2>How it works</h2>
+          <ol>
+            <li>Select your bank's CSV export file</li>
+            <li>Click "Convert to YNAB Format"</li>
+            <li>Your converted file will download automatically</li>
+          </ol>
+
+          <h3>Expected Input Format</h3>
+          <p>Your CSV should have these columns:</p>
+          <code>transaction_date, post_date, type, details, amount, currency</code>
+
+          <h3>Output Format</h3>
+          <p>YNAB Format 2:</p>
+          <code>Date, Payee, Memo, Amount</code>
+
+          <div class="note">
+            <strong>Note:</strong> This converter flips the sign of amounts to match YNAB convention
+            (positive = inflow, negative = outflow) and converts dates to MM/DD/YYYY format.
+          </div>
+        </div>
+      </main>
+
+      <footer>
+        <p>All conversion happens in your browser. No data is uploaded to any server.</p>
+      </footer>
+    </div>
+
+    <script type="module" src="converter.js"></script>
+  </body>
+</html>
