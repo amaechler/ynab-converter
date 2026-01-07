@@ -2,6 +2,8 @@
 
 A simple static website to convert bank CSV files to YNAB-compatible format.
 
+**Live App:** <https://amaechler.github.io/ynab-converter/>
+
 ## Features
 
 - Client-side CSV conversion (no data uploaded to servers)

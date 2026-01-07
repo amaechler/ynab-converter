@@ -4,6 +4,9 @@
   "description": "Convert bank CSV to YNAB-compatible format",
   "type": "module",
   "private": true,
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "build": "tsc && cp public/* dist/",
     "deploy": "npm run build && gh-pages -d dist",
