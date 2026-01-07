@@ -24,21 +24,23 @@ function parseCSVLine(line) {
     return fields;
 }
 function convertDateToYNAB(date) {
-    const parts = date.split('-');
-    if (parts.length === 3) {
-        const [year, month, day] = parts;
-        return `${month}/${day}/${year}`;
+    const parts = date.trim().split('-');
+    if (parts.length !== 3) {
+        return date;
     }
-    return date;
+    const [year, month, day] = parts;
+    // Validate year, month, day are numbers
+    if (!/^\d{4}$/.test(year) || !/^\d{1,2}$/.test(month) || !/^\d{1,2}$/.test(day)) {
+        return date;
+    }
+    return `${month.padStart(2, '0')}/${day.padStart(2, '0')}/${year}`;
 }
 function flipAmount(amount) {
-    amount = amount.trim();
-    if (amount.startsWith('-')) {
-        return amount.substring(1);
+    const trimmedAmount = amount.trim();
+    if (trimmedAmount.startsWith('-')) {
+        return trimmedAmount.substring(1);
     }
-    else {
-        return '-' + amount;
-    }
+    return '-' + trimmedAmount;
 }
 function escapeCSVField(field) {
     if (field.includes(',') || field.includes('"') || field.includes('\n')) {
@@ -46,6 +48,16 @@ function escapeCSVField(field) {
     }
     return field;
 }
+/**
+ * Converts bank CSV content to YNAB-compatible format.
+ *
+ * @param csvContent - Raw CSV content with header row
+ * @returns YNAB-formatted CSV string with Date, Payee, Memo, Amount columns
+ * @throws Error if the CSV content cannot be parsed
+ *
+ * Expected input format: transaction_date, post_date, type, details, amount, currency
+ * Output format: Date, Payee, Memo, Amount (YNAB Format 2)
+ */
 export function convertToYNAB(csvContent) {
     const lines = csvContent.split('\n');
     const output = ['Date,Payee,Memo,Amount'];

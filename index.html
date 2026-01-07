@@ -16,15 +16,28 @@
       <main>
         <div class="upload-section">
           <div class="file-input-wrapper">
-            <input type="file" id="csvFile" accept=".csv" />
+            <input
+              type="file"
+              id="csvFile"
+              accept=".csv"
+              aria-describedby="fileHelp"
+            />
             <label for="csvFile" class="file-label">Choose CSV File</label>
             <span id="fileName" class="file-name"></span>
           </div>
 
-          <button id="convertBtn" class="convert-btn">Convert to YNAB Format</button>
+          <button id="convertBtn" class="convert-btn">
+            Convert to YNAB Format
+          </button>
         </div>
 
-        <div id="status" class="status"></div>
+        <div
+          id="status"
+          class="status"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        ></div>
 
         <div class="info-section">
           <h2>How it works</h2>
@@ -35,7 +48,7 @@
           </ol>
 
           <h3>Expected Input Format</h3>
-          <p>Your CSV should have these columns:</p>
+          <p id="fileHelp">Your CSV should have these columns:</p>
           <code>transaction_date, post_date, type, details, amount, currency</code>
 
           <h3>Output Format</h3>
